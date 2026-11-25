@@ -1,0 +1,132 @@
+<Window x:Class="Motion.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:views="clr-namespace:Motion.Views"
+        Title="Motion" Icon="pack://application:,,,/Assets/motion.ico" Width="1160" Height="780" MinWidth="940" MinHeight="620"
+        WindowStartupLocation="CenterScreen" UseLayoutRounding="True"
+        Background="{DynamicResource BgBrush}" Foreground="{DynamicResource InkBrush}"
+        FontFamily="Segoe UI Variable Text, Segoe UI" FontSize="14">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="228" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Sidebar (design prototype: brand, connected-device card, navigation) -->
+        <Border Background="{DynamicResource SidebarBrush}" BorderBrush="{DynamicResource LineBrush}" BorderThickness="0,0,1,0" Padding="15,25,15,18">
+            <DockPanel LastChildFill="True">
+                <TextBlock x:Name="StatusSub" DockPanel.Dock="Bottom" Style="{StaticResource Subtle}" FontSize="12" Margin="10,10,10,0" />
+
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="10,0,0,22">
+                            <Border Width="27" Height="27" CornerRadius="9" Background="{DynamicResource GreenBrush}" Margin="0,0,10,0">
+                                <TextBlock Text="M" Foreground="{DynamicResource OnAccentBrush}" FontSize="15" FontWeight="Black"
+                                           HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                            <TextBlock Text="motion" FontSize="20" FontWeight="Bold" VerticalAlignment="Center" />
+                        </StackPanel>
+
+                        <!-- clicking the card opens the Overview, where the name can be edited -->
+                        <Border x:Name="DeviceCard" Background="{DynamicResource Surface2Brush}" BorderBrush="{DynamicResource LineBrush}" BorderThickness="1"
+                                CornerRadius="15" Padding="15" Margin="5,0,5,20" Cursor="Hand" MouseLeftButtonUp="OnDeviceCardClick"
+                                ToolTip="Open the Overview to rename your mouse">
+                            <StackPanel>
+                                <TextBlock Text="CONNECTED DEVICE" FontSize="11" FontWeight="Bold" Foreground="{DynamicResource MutedBrush}" />
+                                <TextBlock x:Name="DeviceNameText" FontWeight="Bold" Margin="0,6,0,2" TextTrimming="CharacterEllipsis" />
+                                <TextBlock x:Name="DeviceSourceText" Style="{StaticResource Subtle}" FontSize="12" />
+                            </StackPanel>
+                        </Border>
+
+                        <RadioButton x:Name="NavHome" GroupName="nav" Style="{StaticResource NavButton}" Content="Overview"
+                                     IsChecked="True" Checked="OnNavChecked" ToolTip="Your device, quick access and getting started" />
+
+                        <TextBlock Text="SET UP YOUR MOUSE" Style="{StaticResource NavLabel}" Margin="12,16,0,6" />
+                        <RadioButton x:Name="NavDetect" GroupName="nav" Style="{StaticResource NavButton}" Content="Detect mouse" Checked="OnNavChecked"
+                                     ToolTip="See exactly which buttons and wheel inputs your mouse sends to Windows" />
+                        <RadioButton x:Name="NavButtons" GroupName="nav" Style="{StaticResource NavButton}" Content="Buttons" Checked="OnNavChecked"
+                                     ToolTip="Choose what each mouse button does" />
+                        <RadioButton x:Name="NavGestures" GroupName="nav" Style="{StaticResource NavButton}" Content="Gestures" Checked="OnNavChecked"
+                                     ToolTip="Hold a button and move in a direction to run an action" />
+                        <RadioButton x:Name="NavWheel" GroupName="nav" Style="{StaticResource NavButton}" Content="Actions Ring" Checked="OnNavChecked"
+                                     ToolTip="A circular menu that opens at your cursor" />
+
+                        <TextBlock Text="AUTOMATE" Style="{StaticResource NavLabel}" Margin="12,16,0,6" />
+                        <RadioButton x:Name="NavActions" GroupName="nav" Style="{StaticResource NavButton}" Content="Smart Actions" Checked="OnNavChecked"
+                                     ToolTip="Build reusable multi-step actions" />
+                        <RadioButton x:Name="NavProfiles" GroupName="nav" Style="{StaticResource NavButton}" Content="App profiles" Checked="OnNavChecked"
+                                     ToolTip="Different setups that switch automatically for each app" />
+
+                        <TextBlock Text="APP" Style="{StaticResource NavLabel}" Margin="12,16,0,6" />
+                        <RadioButton x:Name="NavSettings" GroupName="nav" Style="{StaticResource NavButton}" Content="Settings" Checked="OnNavChecked"
+                                     ToolTip="Appearance, startup, scrolling, troubleshooting, backup" />
+                    </StackPanel>
+                </ScrollViewer>
+            </DockPanel>
+        </Border>
+
+        <!-- Content -->
+        <Grid Grid.Column="1" Margin="44,28,44,24">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid Margin="0,0,0,24">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel>
+                    <TextBlock FontSize="13" Foreground="{DynamicResource MutedBrush}">
+                        <Run Text="Workspace / " /><Run x:Name="Crumb" Text="Overview" />
+                    </TextBlock>
+                    <TextBlock x:Name="PageTitle" FontSize="34" FontWeight="Bold" Margin="0,12,0,6" />
+                    <TextBlock x:Name="PageSub" Style="{StaticResource Subtle}" FontSize="14" MaxWidth="700" HorizontalAlignment="Left" />
+                </StackPanel>
+                <!-- engine status + light/dark switch -->
+                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Top">
+                    <Ellipse x:Name="StatusDot" Width="7" Height="7" Margin="0,0,8,0" VerticalAlignment="Center" />
+                    <TextBlock x:Name="StatusText" FontSize="12" Foreground="{DynamicResource MutedBrush}" VerticalAlignment="Center" Margin="0,0,14,0" />
+                    <Button x:Name="ThemeButton" Style="{StaticResource OutlineButton}" MinHeight="32" Padding="11,0" Click="OnThemeClick">
+                        <TextBlock x:Name="ThemeIcon" FontFamily="{StaticResource FaSolidFont}" FontSize="13" />
+                    </Button>
+                </StackPanel>
+            </Grid>
+
+            <ScrollViewer x:Name="HomePage" Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                <views:HomeView x:Name="HomeContent" />
+            </ScrollViewer>
+            <ScrollViewer x:Name="DetectPage" Grid.Row="1" VerticalScrollBarVisibility="Auto" Visibility="Collapsed">
+                <views:DetectView x:Name="DetectContent" />
+            </ScrollViewer>
+            <ScrollViewer x:Name="ButtonsPage" Grid.Row="1" VerticalScrollBarVisibility="Auto" Visibility="Collapsed">
+                <views:ButtonsView x:Name="ButtonsContent" />
+            </ScrollViewer>
+            <ScrollViewer x:Name="GesturesPage" Grid.Row="1" VerticalScrollBarVisibility="Auto" Visibility="Collapsed">
+                <views:GesturesView x:Name="GesturesContent" />
+            </ScrollViewer>
+            <ScrollViewer x:Name="WheelPage" Grid.Row="1" VerticalScrollBarVisibility="Auto" Visibility="Collapsed">
+                <views:WheelView x:Name="WheelContent" />
+            </ScrollViewer>
+            <ScrollViewer x:Name="ActionsPage" Grid.Row="1" VerticalScrollBarVisibility="Auto" Visibility="Collapsed">
+                <views:ActionsView x:Name="ActionsContent" />
+            </ScrollViewer>
+            <ScrollViewer x:Name="ProfilesPage" Grid.Row="1" VerticalScrollBarVisibility="Auto" Visibility="Collapsed">
+                <views:ProfilesView x:Name="ProfilesContent" />
+            </ScrollViewer>
+            <ScrollViewer x:Name="SettingsPage" Grid.Row="1" VerticalScrollBarVisibility="Auto" Visibility="Collapsed">
+                <views:SettingsView x:Name="SettingsContent" />
+            </ScrollViewer>
+        </Grid>
+
+        <!-- "Saved" toast, bottom right, after every automatic save -->
+        <Border x:Name="SavedPill" Grid.ColumnSpan="2" Opacity="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,22,22"
+                Padding="16,11" CornerRadius="10" Background="#E1FF68" IsHitTestVisible="False" Panel.ZIndex="50">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock x:Name="SavedIcon" FontFamily="{StaticResource FaSolidFont}" FontSize="12" Foreground="#16190E" VerticalAlignment="Center" Margin="0,0,8,0" />
+                <TextBlock Text="Saved" FontSize="12" FontWeight="Bold" Foreground="#16190E" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

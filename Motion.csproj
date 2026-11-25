@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms> <!-- only for the tray icon -->
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <RootNamespace>Motion</RootNamespace>
+    <AssemblyName>Motion</AssemblyName>
+    <Version>0.8.0</Version>
+
+    <!-- Lightweight tray mode: fewer background threads, smaller baseline memory -->
+    <ConcurrentGarbageCollection>false</ConcurrentGarbageCollection>
+    <ServerGarbageCollector>false</ServerGarbageCollector>
+    <TieredPGO>false</TieredPGO>
+    <InvariantGlobalization>false</InvariantGlobalization> <!-- must be false: WPF bindings fail with "Cannot find non-neutral culture related to en-us" otherwise -->
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+    <ApplicationIcon>Assets\motion.ico</ApplicationIcon>
+
+    <!-- Portable release: one self-contained EXE, no .NET install needed -->
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <SelfContained>true</SelfContained>
+    <PublishSingleFile>true</PublishSingleFile>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Font Awesome Free 6.5.1 (fonts: SIL OFL 1.1, icons: CC BY 4.0). Bundled, not downloaded. -->
+    <Resource Include="Assets\Fonts\*.ttf" />
+    <Resource Include="Assets\icons.txt" />
+    <Resource Include="Assets\motion.ico" />
+    <Resource Include="Assets\motion.png" />
+  </ItemGroup>
+
+</Project>
