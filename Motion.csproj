@@ -9,7 +9,7 @@
     <ImplicitUsings>disable</ImplicitUsings>
     <RootNamespace>Motion</RootNamespace>
     <AssemblyName>Motion</AssemblyName>
-    <Version>0.8.0</Version>
+    <Version>0.9.0</Version>
 
     <!-- Lightweight tray mode: fewer background threads, smaller baseline memory -->
     <ConcurrentGarbageCollection>false</ConcurrentGarbageCollection>

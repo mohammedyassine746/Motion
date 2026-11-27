@@ -17,7 +17,7 @@
             <DockPanel LastChildFill="True">
                 <TextBlock x:Name="StatusSub" DockPanel.Dock="Bottom" Style="{StaticResource Subtle}" FontSize="12" Margin="10,10,10,0" />
 
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <ScrollViewer VerticalScrollBarVisibility="Disabled">
                     <StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="10,0,0,22">
                             <Border Width="27" Height="27" CornerRadius="9" Background="{DynamicResource GreenBrush}" Margin="0,0,10,0">
@@ -58,6 +58,8 @@
                                      ToolTip="Different setups that switch automatically for each app" />
 
                         <TextBlock Text="APP" Style="{StaticResource NavLabel}" Margin="12,16,0,6" />
+                        <RadioButton x:Name="NavRgb" GroupName="nav" Style="{StaticResource NavButton}" Content="RGB" Checked="OnNavChecked"
+                                     ToolTip="Mouse lighting (shown only for supported hardware)" />
                         <RadioButton x:Name="NavSettings" GroupName="nav" Style="{StaticResource NavButton}" Content="Settings" Checked="OnNavChecked"
                                      ToolTip="Appearance, startup, scrolling, troubleshooting, backup" />
                     </StackPanel>
@@ -96,6 +98,9 @@
 
             <ScrollViewer x:Name="HomePage" Grid.Row="1" VerticalScrollBarVisibility="Auto">
                 <views:HomeView x:Name="HomeContent" />
+            </ScrollViewer>
+            <ScrollViewer x:Name="RgbPage" Grid.Row="1" VerticalScrollBarVisibility="Auto" Visibility="Collapsed">
+                <views:RgbView x:Name="RgbContent" />
             </ScrollViewer>
             <ScrollViewer x:Name="DetectPage" Grid.Row="1" VerticalScrollBarVisibility="Auto" Visibility="Collapsed">
                 <views:DetectView x:Name="DetectContent" />

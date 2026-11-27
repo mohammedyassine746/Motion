@@ -164,6 +164,12 @@
 // ---------------------------------------------------------------------------------------------------------------------
 // 10. CHANGELOG (newest first - add an entry for every change)
 // ---------------------------------------------------------------------------------------------------------------------
+// v0.9.0  (UNTESTED, not compiled; the reference screenshots + "stuf to edit.txt" were NOT received, only the .md) Dark-mode ComboBox text fix (SelectBox Foreground),
+//         true-capsule Ui.Pill, Overview device card fills its height (grid rows), stacked rename UI, light-mode illustration stage, wheel nav bar (back/trail/count/siblings),
+//         Connected-mice panel removed from Detect (RawDevices untouched), Left removed from the Buttons list + dropped from saved profiles on load,
+//         Launch program or website: drop target + searchable installed-app picker (Services/InstalledApps, Views/AppPickerWindow, Views/AppTargets) in action pickers and Smart Actions,
+//         hide-on-leave delay (WheelSettings.LeaveDelayMs), RGB page (Views/RgbView + Services/RgbService providers; none implemented), profile icons (Services/AppIconLibrary),
+//         icon = white mouse on lime.
 // v0.8.0  (UNTESTED, not compiled) Redesign from the HTML prototype: new Theme.xaml tokens (dark/light), prototype sidebar (brand, connected-device card, nav),
 //         top bar with engine status + light/dark switch (also Settings > Appearance, AppSettings.DarkMode), "Saved" toast, Overview page rebuilt
 //         (Views/HomeView: My devices with the generic mouse illustration Views/MouseIllustration.cs, quick access, device status, RGB Control card

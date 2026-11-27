@@ -16,6 +16,7 @@ public partial class MainWindow : Window
 
         // Navigation icons: glyph characters from the bundled Font Awesome font; the nav button template shows Tag.
         NavHome.Tag = Icons.Glyph("house");
+        NavRgb.Tag = Icons.Glyph("lightbulb");
         NavDetect.Tag = Icons.Glyph("crosshairs");
         NavButtons.Tag = Icons.Glyph("hand-pointer");
         NavGestures.Tag = Icons.Glyph("arrows-up-down-left-right");
@@ -88,6 +89,7 @@ public partial class MainWindow : Window
     {
         var target = page switch
         {
+            "Rgb" => NavRgb,
             "Detect" => NavDetect,
             "Buttons" => NavButtons,
             "Gestures" => NavGestures,
@@ -109,6 +111,7 @@ public partial class MainWindow : Window
             : NavActions.IsChecked == true ? "Actions"
             : NavWheel.IsChecked == true ? "Wheel"
             : NavGestures.IsChecked == true ? "Gestures"
+            : NavRgb.IsChecked == true ? "Rgb"
             : NavDetect.IsChecked == true ? "Detect"
             : NavButtons.IsChecked == true ? "Buttons" : "Home";
         ShowPage(page);
@@ -121,6 +124,7 @@ public partial class MainWindow : Window
             page.Visibility = name == key ? Visibility.Visible : Visibility.Collapsed;
 
         Set(HomePage, "Home");
+        Set(RgbPage, "Rgb");
         Set(DetectPage, "Detect");
         Set(ButtonsPage, "Buttons");
         Set(GesturesPage, "Gestures");
@@ -132,6 +136,7 @@ public partial class MainWindow : Window
         switch (name)
         {
             case "Home": HomeContent.Reload(); break;
+            case "Rgb": RgbContent.Reload(); break;
             case "Detect": DetectContent.Reload(); break;
             case "Buttons": ButtonsContent.Reload(); break;
             case "Gestures": GesturesContent.Reload(); break;
@@ -148,14 +153,16 @@ public partial class MainWindow : Window
             "Actions" => "Smart Actions",
             "Profiles" => "App profiles",
             "Detect" => "Detect mouse",
+            "Rgb" => "RGB",
             _ => name
         };
         Crumb.Text = name switch
         {
-            "Home" => "Overview", "Wheel" => "Actions Ring", "Actions" => "Smart Actions", "Profiles" => "App profiles", "Detect" => "Detect mouse", _ => name
+            "Home" => "Overview", "Wheel" => "Actions Ring", "Actions" => "Smart Actions", "Profiles" => "App profiles", "Detect" => "Detect mouse", "Rgb" => "RGB", _ => name
         };
         PageSub.Text = name switch
         {
+            "Rgb" => "Lighting controls for supported mice, with an honest status for the rest.",
             "Detect" => "Press your mouse buttons and see exactly what Windows receives.",
             "Buttons" => "Choose what each mouse button does. Not sure which is which? Use Detect mouse first.",
             "Gestures" => "Hold a button, move the mouse in a direction, and release to run an action.",
